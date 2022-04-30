@@ -68,10 +68,50 @@ REVOKE UPDATE (Bestand, Reserviert, Bestellt)
 ON lager
 FROM 'Gast'@'localhost';
 
+
+#Schreiben Sie alle notwendigen Befehle, damit der Benutzer Gast nur Leserechte
+#auf die Attribute Artnr, Lagerort und Bestand der Relation Lager bekommt. Weiter darf
+#er Tupel dieser Relation nicht sehen, falls Mindestbestand plus reservierte Teile gr¨oßer
+#als der tats¨achliche Bestand ist. Diese Rechte darf der Benutzer Gast auch weiterreichen.
+CREATE USER Gast;
+CREATE VIEW VPermission(Artnr, Lagerort, Bestand) AS
+	(SELECT Artnr, Lagerort, Bestand FROM lager 
+		WHERE (lager.Mindbest + lager.Reserviert) <= lager.Bestand); 
+GRANT SELECT ON vpermission TO Gast WITH GRANT OPTION;
+
+#EXECUTE AS USER = 'Gast';
+SELECT * FROM vpermission;
+
+
+#Um die Integrit¨at zu optimieren, sollen die Attribute GebDatum, Stand,
+#Gehalt und Beurteilung der Relation Personal auf zul¨assige Werte ¨uberpr¨uft werden. Es
+#ist bekannt, dass alle Mitarbeiter zwischen 1940 und 1998 geboren sind, entweder ledig,
+#verheiratet, geschieden oder verwitwet sind, das Gehalt zwischen 500 und 6000 Euro liegt
+#und die Beurteilung entweder Null oder einen Wert zwischen 1 und 10 besitzt. F¨ugen
+#Sie diese Bedingungen mittels geeigneter Alter-Table-Befehle hinzu, wobei sicherzustellen
+#ist, dass diese Bedingungen, falls gew¨unscht, auch wieder entfernt werden k¨onnen (bitte
+#Constraintnamen vergeben!).
+
+
+ALTER TABLE personal ADD CONSTRAINT zulaessig CHECK (
+	(GebDatum >= STR_TO_DATE('1940-01-01', '%Y-%m-%d') && GebDatum <= STR_TO_DATE('1998-12-31', '%Y-%m-%d'))
+	&& (Stand LIKE 'led' || Stand LIKE 'verh' || Stand LIKE 'ges' || Stand LIKE 'verw')
+	&& (Gehalt > 500 && Gehalt < 6000)
+	&& (Beurteilung IS NULL || (Beurteilung >= 1 && Beurteilung <= 10))
+	);
+
+
+#Tests
+INSERT INTO personal(Persnr, NAME, GebDatum) VALUE (11, 'test', "1901-03-11");
+INSERT INTO personal(Persnr, NAME, GebDatum, Stand) VALUE (11, 'test', "1945-03-11", 't');
+INSERT INTO personal(Persnr, NAME, GebDatum, Gehalt) VALUE (11, 'test', "1945-03-11", 300);
+INSERT INTO personal(Persnr, NAME, GebDatum, Beurteilung) VALUE (11, 'test', "1945-03-11", 11);
+
+
 # Im Attribut Aufgabe der Relation Personal gibt es nur eine beschr¨ankte
 # Anzahl von m¨oglichen Aufgaben. Definieren Sie ein Gebiet Berufsbezeichnung, das eine
 # Ansammlung von m¨oglichen Berufen enth¨alt.
-ENUM('Manager', 'Vertreter', 'Facharbeiterin', 'Sekretr', 'Meister', 'Arbeiter', 'Sachabearbeiterin', 'Azubi');
+Alter Table personal add column ENUM('Manager', 'Vertreter', 'Facharbeiterin', 'Sekretr', 'Meister', 'Arbeiter', 'Sachabearbeiterin', 'Azubi');
 
 
 
