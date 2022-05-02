@@ -15,11 +15,6 @@ END
 //
 CALL erreichbarVon('SF');
 
-
-
-
-
-SELECT * FROM flights;
 DELIMITER //
 CREATE OR REPLACE PROCEDURE teilB()
 BEGIN
@@ -34,7 +29,6 @@ WITH RECURSIVE paths (origin, cur_dest) AS (
 SELECT * FROM paths WHERE origin NOT LIKE cur_dest ORDER BY origin;
 END
 //
-
 CALL teilB();
 
 DELIMITER //
@@ -52,7 +46,6 @@ WITH RECURSIVE paths (origin,cur_path, cur_dest) AS (
 SELECT * FROM paths WHERE cur_path NOT LIKE cur_dest;
 END
 //
-
 CALL teilC();
 
 DELIMITER //
@@ -71,7 +64,6 @@ WITH RECURSIVE paths (origin,cur_path, cur_dest, cur_arr) AS (
 SELECT origin, cur_path, cur_dest FROM paths;
 END
 //
-CALL teilD();
-SELECT * FROM flights;		
+CALL teilD();	
 		
 		

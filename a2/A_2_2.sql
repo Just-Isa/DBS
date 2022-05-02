@@ -6,6 +6,7 @@ BEGIN
     SELECT model FROM pc ORDER BY ABS(price - priceHelp) LIMIT 1; 
 END;
 //
+CALL sol1(1000);
 
 QUERY sol2:
 DELIMITER //
@@ -31,6 +32,7 @@ BEGIN
     END IF;
 END;
 //
+CALL sol2('A', 2001);
 
 QUERY sol3:
 DELIMITER //
@@ -48,6 +50,7 @@ BEGIN
       VALUES (modelCounter, iSpeed, iRam, `ihard-disk`, iPrice);
 END;
 //
+CALL sol3(1001,23,23,2,323);
 
 QUERY sol4:
 DELIMITER //
@@ -63,3 +66,4 @@ BEGIN
 	SELECT (countPc + countLa + countPr) AS Anzahl;
 END;
 //
+CALL sol4(1000);
