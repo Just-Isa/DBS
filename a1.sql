@@ -79,7 +79,7 @@ CREATE VIEW VPermission(Artnr, Lagerort, Bestand) AS
 		WHERE (lager.Mindbest + lager.Reserviert) <= lager.Bestand); 
 GRANT SELECT ON vpermission TO Gast WITH GRANT OPTION;
 
-#EXECUTE AS USER = 'Gast';
+EXECUTE AS USER = 'Gast';
 SELECT * FROM vpermission;
 
 
