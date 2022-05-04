@@ -1,4 +1,4 @@
-```CREATE OR REPLACE TABLE Product (
+CREATE OR REPLACE TABLE Product (
     maker VARCHAR(1),
     model INT,
     type VARCHAR(20)
@@ -62,4 +62,3 @@ INSERT INTO Product(maker, model, type) VALUES ('B', 3002, 'printer');
 INSERT INTO Product(maker, model, type) VALUES ('C', 3003, 'printer');
 INSERT INTO Product(maker, model, type) VALUES ('D', 3004, 'printer');
 INSERT INTO Product(maker, model, type) VALUES ('E', 3005, 'printer');
-```
