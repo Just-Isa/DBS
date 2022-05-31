@@ -30,4 +30,4 @@ db.unicorns.find({weight:{$gt:600, $lt:900}, gender:'m'})
 db.unicorns.updateMany({},{$inc: {weight:10}})
 
 // Alle männlichen lieben jetzt zusätzlich Chocolade und die Anzahl der getöteten Vampire reduziert sich um 10
-db.unicorns.updateMany({}, {$inc: {vampires:-2}, $push: {loves: 'Chocolade'}})
+db.unicorns.updateMany({}, {$inc: {vampires:-2}, $push: {loves: 'Chocolade'}})image.png
