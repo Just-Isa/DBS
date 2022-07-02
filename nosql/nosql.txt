@@ -1,3 +1,4 @@
+// Bearbeitet mit Hannes Herbert Schwanzer
 // 1)
 // Welche Unicorns (name und gender) sind vor 1980 geboren?
 db.unicorns.find({dob: {$lt: ISODate("1980-01-01")}}, {name:true, gender:true})
