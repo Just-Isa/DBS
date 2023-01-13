@@ -13,8 +13,6 @@
 
 --- 
 
-<br>
-
 - ### ./result-graphs for graphical representation of results
 - ### ./files for the used dataset
 - ### ./theDeed for script
