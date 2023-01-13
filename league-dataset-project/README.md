@@ -1,5 +1,5 @@
 
-# Data Science project for analizing the winrate & fairness of Characters in the game League of Legends
+# Data Science project for analizing the winrate & fairness of characters in the game League of Legends
 
 
 ## Resources 
